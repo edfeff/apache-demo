@@ -11,6 +11,7 @@
         <module>dubbo-ant</module>
         <module>tomcat-ant</module>
         <module>zookeeper-ant</module>
+        <module>dubbo-bear</module>
     </modules>
     <packaging>pom</packaging>
 
