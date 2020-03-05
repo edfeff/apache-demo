@@ -11,6 +11,7 @@ import java.util.List;
 
 public class CRUDDemo {
     public static void main(String[] args) throws Exception {
+//        链接策略
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
         CuratorFramework client = CuratorFrameworkFactory.newClient("localhost:2181", 5000, 5000, retryPolicy);
         client.start();
