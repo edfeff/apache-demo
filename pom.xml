@@ -9,9 +9,9 @@
     <version>0.0.1</version>
     <modules>
         <module>dubbo-ant</module>
+        <module>dubbo-bear</module>
         <module>tomcat-ant</module>
         <module>zookeeper-ant</module>
-        <module>dubbo-bear</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -24,14 +24,14 @@
     </build>
 
     <properties>
-        <org.apache.dubbo.dubbo.version>2.7.5</org.apache.dubbo.dubbo.version>
+        <org.apache.dubbo.dubbo.version></org.apache.dubbo.dubbo.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo -->
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
-            <version>${org.apache.dubbo.dubbo.version}</version>
+            <version>2.7.5</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
         <dependency>
