@@ -23,9 +23,6 @@
         </plugins>
     </build>
 
-    <properties>
-        <org.apache.dubbo.dubbo.version></org.apache.dubbo.dubbo.version>
-    </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo -->
         <dependency>

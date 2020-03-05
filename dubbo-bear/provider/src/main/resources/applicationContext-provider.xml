@@ -10,9 +10,13 @@
     <bean id="helloServiceImpl" class="com.wpp.provider.HelloServiceImpl"/>
 
     <dubbo:application name="provider"/>
-    <dubbo:protocol port="20880" name="dubbo"/>
+
+    <!--    <dubbo:protocol port="20880" name="dubbo"/>-->
+
+    <dubbo:registry address="zookeeper://192.168.44.129:2181"/>
+
+    <!--    <dubbo:service registry="zookeeper129" interface="com.wpp.api.HelloService" ref="helloServiceImpl"/>-->
     <dubbo:service
-            registry="N/A"
             interface="com.wpp.api.HelloService"
             ref="helloServiceImpl"/>
 
