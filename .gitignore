@@ -28,3 +28,4 @@ hs_err_pid*
 apache-parent.iml
 tomcat.8080
 */target
+**/**/target
