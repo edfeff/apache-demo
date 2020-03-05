@@ -1,10 +1,10 @@
 package zkinaction.ch3;
 
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
-import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.*;
+import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class Master implements Watcher {
     ZooKeeper zooKeeper;
@@ -21,6 +21,7 @@ public class Master implements Watcher {
     void stopZK() throws InterruptedException {
         zooKeeper.close();
     }
+
     @Override
     public void process(WatchedEvent event) {
         Thread thread = Thread.currentThread();
@@ -37,8 +38,49 @@ public class Master implements Watcher {
         }
         Master master = new Master(hostPort);
         master.startZK();
+
+        master.runForMaster();
+
         System.out.println("main:" + Thread.currentThread());
-        Thread.sleep(600);
+        Thread.sleep(60000);
         master.stopZK();
+    }
+
+    Random random = new Random();
+    String serverID = Integer.toHexString(random.nextInt());
+    boolean isLeader = false;
+
+    boolean checkMaster() {
+        while (true) {
+            try {
+                Stat stat = new Stat();
+                byte[] data = zooKeeper.getData("/master", false, stat);
+                isLeader = serverID.equals(new String(data));
+                return true;
+            } catch (InterruptedException e) {
+            } catch (KeeperException e) {
+                if (e instanceof KeeperException.NoNodeException) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    void runForMaster() throws InterruptedException {
+        while (true) {
+            try {
+                zooKeeper.create("/master", serverID.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+                isLeader = true;
+                break;
+            } catch (KeeperException e) {
+                if (e instanceof KeeperException.NodeExistsException) {
+                    isLeader = false;
+                }
+            }
+            if (checkMaster()) {
+                break;
+            }
+        }
+
     }
 }
