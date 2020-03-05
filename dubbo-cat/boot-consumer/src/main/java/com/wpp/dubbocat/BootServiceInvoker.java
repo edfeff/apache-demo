@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class BootServiceInvoker {
-    @Reference( url = "dubbo://localhost:20880" )
+    //    @Reference( url = "dubbo://localhost:20880" )
+    @Reference()
     private BootService bootService;
 
     public void hello() {
