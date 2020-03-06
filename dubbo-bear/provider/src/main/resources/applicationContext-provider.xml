@@ -13,7 +13,8 @@
 
     <!--    <dubbo:protocol port="20880" name="dubbo"/>-->
 
-    <dubbo:registry address="zookeeper://192.168.44.129:2181"/>
+<!--    <dubbo:registry address="zookeeper://192.168.44.129:2181"/>-->
+    <dubbo:registry address="zookeeper://localhost:2181"/>
 
     <!--    <dubbo:service registry="zookeeper129" interface="com.wpp.api.HelloService" ref="helloServiceImpl"/>-->
     <dubbo:service

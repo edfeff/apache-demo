@@ -13,6 +13,7 @@
         <module>boot-api</module>
         <module>boot-provider</module>
         <module>boot-consumer</module>
+        <module>boot-starter</module>
     </modules>
 
     <groupId>com.wpp</groupId>

@@ -1,0 +1,4 @@
+org.springframework.context.ApplicationListener=\
+  com.wpp.stater.context.event.WppBanner
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.wpp.stater.spring.boot.WppAutoConfiguration

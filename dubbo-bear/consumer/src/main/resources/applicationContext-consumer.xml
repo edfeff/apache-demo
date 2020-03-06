@@ -10,7 +10,9 @@
     <dubbo:protocol name="dubbo" port="20880"/>
     <!--    <dubbo:registry address="zookeeper://192.168.44.129:2181" id="zookeeper129"/>-->
     <!--    url="dubbo://localhost:20880"-->
-    <dubbo:registry address="zookeeper://192.168.44.129:2181"/>
+<!--    <dubbo:registry address="zookeeper://192.168.44.129:2181"/>-->
+    <dubbo:registry address="zookeeper://localhost:2181"/>
+
     <!--    <dubbo:reference id="helloService" interface="com.wpp.api.HelloService" registry="zookeeper129"-->
     <dubbo:reference id="helloService"
                      interface="com.wpp.api.HelloService"/>

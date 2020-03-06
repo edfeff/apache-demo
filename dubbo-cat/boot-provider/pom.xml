@@ -20,6 +20,11 @@
         </dependency>
         <dependency>
             <groupId>com.wpp</groupId>
+            <artifactId>boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wpp</groupId>
             <artifactId>boot-api</artifactId>
             <version>${project.version}</version>
         </dependency>
