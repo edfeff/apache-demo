@@ -2,10 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:wpp="http://wpp.com/schema/wpp"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://code.alibabatech.com/schema/dubbo
-        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://wpp.com/schema/wpp
+        http://wpp.com/schema/wpp/wpp.xsd">
 
     <bean id="helloServiceImpl" class="com.wpp.provider.HelloServiceImpl"/>
 
@@ -13,12 +16,12 @@
 
     <!--    <dubbo:protocol port="20880" name="dubbo"/>-->
 
-<!--    <dubbo:registry address="zookeeper://192.168.44.129:2181"/>-->
+    <!--    <dubbo:registry address="zookeeper://192.168.44.129:2181"/>-->
     <dubbo:registry address="zookeeper://localhost:2181"/>
 
     <!--    <dubbo:service registry="zookeeper129" interface="com.wpp.api.HelloService" ref="helloServiceImpl"/>-->
     <dubbo:service
             interface="com.wpp.api.HelloService"
             ref="helloServiceImpl"/>
-
+    <wpp:address value="address-value" id="address-id" owner="address-owner"/>
 </beans>

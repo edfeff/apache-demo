@@ -16,6 +16,13 @@
             <groupId>com.wpp</groupId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.wpp</groupId>
+            <artifactId>xsd-handler</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>

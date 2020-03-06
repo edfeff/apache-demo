@@ -1,5 +1,6 @@
 package com.wpp.provider;
 
+import com.wpp.config.AddressConfig;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
@@ -12,7 +13,8 @@ public class ProviderApp {
         ClassPathXmlApplicationContext
                 context = new ClassPathXmlApplicationContext("applicationContext-provider.xml");
         context.start();
-
+//        AddressConfig bean = context.getBean(AddressConfig.class);
+//        System.out.println(bean);
         try {
             System.in.read();
         } catch (IOException e) {
