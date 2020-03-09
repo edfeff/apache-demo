@@ -13,6 +13,7 @@
         <module>tomcat-ant</module>
         <module>zookeeper-ant</module>
         <module>shiro-ant</module>
+        <module>okhttp-ant</module>
     </modules>
     <packaging>pom</packaging>
 
