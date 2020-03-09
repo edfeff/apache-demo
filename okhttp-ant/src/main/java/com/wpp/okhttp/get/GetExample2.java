@@ -1,4 +1,4 @@
-package com.wpp.okhttp;
+package com.wpp.okhttp.get;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

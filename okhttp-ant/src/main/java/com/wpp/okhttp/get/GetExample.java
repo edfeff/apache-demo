@@ -1,4 +1,4 @@
-package com.wpp.okhttp;
+package com.wpp.okhttp.get;
 
 import java.io.IOException;
 
