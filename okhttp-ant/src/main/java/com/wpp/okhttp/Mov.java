@@ -11,7 +11,6 @@ public class Mov {
             System.out.println("参数错误");
         }
 
-
         String basePath = args[0];
         if (!basePath.endsWith("/")) {
             basePath = basePath + "/";
@@ -30,16 +29,16 @@ public class Mov {
             for (String f : filelist) {
                 String mp4file = basePath + f;
                 System.out.println("add file: " + f);
-                FileInputStream fin = new FileInputStream(new File(mp4file));
-
-                while ((read = fin.read(buffer)) > 0) {
-                    out.write(buffer, 0, read);
+                try {
+                    FileInputStream fin = new FileInputStream(new File(mp4file));
+                    while ((read = fin.read(buffer)) > 0) {
+                        out.write(buffer, 0, read);
+                    }
+                    fin.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
-
-                fin.close();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

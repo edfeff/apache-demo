@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wpp.shiro.dao.PermissionDao">
+    <resultMap id="permissionMap" type="com.wpp.shiro.util.model.One2Many">
+        <id column="userId" property="userId"/>
+        <result column="nickname" property="nickname"/>
+        <result column="roleId" property="roleId"/>
+        <result column="roleName" property="roleName"/>
+        <collection property="menuList" ofType="String">
+            <id column="menuCode" property="menuCode"/>
+        </collection>
+        <collection property="permissionList" ofType="String">
+            <id column="permissionCode" property="permissionCode"/>
+        </collection>
+    </resultMap>
+
+    <!--    JSONObject getUserPermission(String username);-->
+    <select id="getUserPermission" resultMap="permissionMap">
+        SELECT
+            u.id  userId,
+            u.nickname nickname,
+            u.role_id  roleId,
+            p.menu_code  menuCode,
+            p.permission_code permissionCode
+        FROM  sys_user u
+            LEFT JOIN sys_role r on r.id =u.role_id
+            LEFT JOIN sys_role_permission rp on u.role_id = rp.role_id
+            LEFT JOIN sys_permission p  on  rp.permission_id = p.id
+        WHERE u.username = #{username}
+        AND u.delete_status ='1'
+    </select>
+
+    <!--    Set<String> getAllPermission();-->
+    <select id="getAllPermission" resultType="String">
+        select
+        p.permission_code permissionCode
+        FROM  sys_permission p
+        ORDER by p.id
+    </select>
+
+    <!--    Set<String> getAllMenu();-->
+    <select id="getAllMenu" resultType="String">
+        select
+            p.menu_code menu_code
+        FROM sys_permission p
+        ORDER by p.id
+    </select>
+</mapper>

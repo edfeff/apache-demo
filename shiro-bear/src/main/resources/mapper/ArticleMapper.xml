@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wpp.shiro.dao.ArticleDao">
+    <!--    int addArticle(JSONObject jsonObject);-->
+    <insert id="addArticle" parameterType="com.alibaba.fastjson.JSONObject">
+        insert  into article
+        (content)
+        values
+        (#{content})
+    </insert>
+
+    <!--    int countArticle(JSONObject jsonObject);-->
+    <select id="countArticle" resultType="int">
+    select count(1)
+    from article w
+    where  w.delete_status ='1'
+    </select>
+    <!--    List<JSONObject> listArticle(JSONObject jsonObject);-->
+    <select id="listArticle" resultType="com.alibaba.fastjson.JSONObject">
+    SELECT
+    w.id id ,
+    w.content  content,
+    date_format(w.create_time,'%Y.%m.%d.%T') createTime
+    from article w
+    where w.delete_status = '1'
+    order by w.id desc
+    limit #{offSet} ,#{pageRow}
+    </select>
+    <!--    int updateArticle(JSONObject jsonObject);-->
+    <update id="updateArticle" parameterType="com.alibaba.fastjson.JSONObject">
+        update article
+        set content = #{content}
+        where  id = #{id}
+    </update>
+</mapper>

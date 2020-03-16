@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wpp.shiro.dao.UserDao">
+    <resultMap id="userMap" type="com.wpp.shiro.util.model.One2Many">
+        <id column="userId" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="roleId" property="roleId"/>
+        <result column="roleName" property="roleName"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <result column="lastLoginTime" property="lastLoginTime"/>
+        <result column="deleteStatus" property="deleteStatus"/>
+        <collection property="permissionList" ofType="String">
+            <id column="permissionName" property="permissionName"/>
+        </collection>
+    </resultMap>
+    <resultMap id="roleMap" type="com.heeexy.example.util.model.One2Many">
+        <id column="roleId" property="roleId"/>
+        <result column="roleName" property="roleName"/>
+        <collection property="users" ofType="com.alibaba.fastjson.JSONObject">
+            <id column="userId" property="userId"/>
+            <result column="nickname" property="nickname"/>
+        </collection>
+        <collection property="menus" ofType="com.heeexy.example.util.model.One2Many">
+            <id column="menuCode" property="menuCode"/>
+            <result column="menuName" property="menuName"/>
+            <collection property="permissions" ofType="com.alibaba.fastjson.JSONObject">
+                <id column="permissionId" property="permissionId"/>
+                <result column="permissionName" property="permissionName"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <!--    int countUser(JSONObject jsonObject);-->
+    <select id="countUser" resultType="Integer">
+        select count(1) from  sys_user  u where u.delete_status= '1'
+    </select>
+
+    <!--    List<JSONObject> listUser(JSONObject jsonObject);-->
+    <select id="listUser" resultMap="userMap">
+       SELECT
+            u.id userId,
+            u.username username,
+            u.nickname nickname,
+            u.role_id roleId,
+            u.delete_status deleteStatus,
+            DATE_FORMAT(u.create_time,'%Y.%m.%d %T') createTime,
+            DATE_FORMAT(u.update_time,'%Y.%m.%d %T') updateTime,
+            r.role_name roleName,
+            CONCAT(p.menu_name,p.permission_name) permissionName
+        FROM sys_user  u
+        LEFT JOIN sys_role r on u.role_id = r.id
+        left JOIN sys_role_permission rp on rp.role_id =r.id
+        left JOIN sys_permission p on p.id = rp.permission_id
+        ORDER by u.id;
+    </select>
+    <!--    List<JSONObject> getAllRoles();-->
+    <select id="getAllRoles" resultType="com.alibaba.fastjson.JSONObject">
+        select
+         r.id roleId,
+         r.role_name roleName
+        FROM sys_role r
+        WHERE delete_status ='1'
+
+    </select>
+    <!--    int queryExistUsername(JSONObject jsonObject);-->
+    <select id="queryExistUsername" resultType="int">
+            SELECT COUNT(1)
+            FROM sys_user u
+            where u.delete_status ='1'
+            and u.username = #{username}
+    </select>
+    <!--    int addUser(JSONObject jsonObject);-->
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="userId">
+    INSERT into
+    sys_user(username,password,nickname,role_id)
+    values (#{username},#{password},#{nickname},#{role_id})
+    </insert>
+    <!--    int updateUser(JSONObject jsonObject);-->
+    <update id="updateUser">
+        UPDATE sys_user
+        set nickname= #{nickname}
+        <if test="password != '' and password != null">
+            ,password =#{password}
+        </if>
+        ,role_id = #{roleId}
+        ,delete_status = #{deleteStatus}
+        where id = #{userId}
+        and id != 10001
+    </update>
+
+    <!--    List<JSONObject> listRole();-->
+    <select id="listRole" resultMap="roleMap">
+        SELECT
+            r.id roleId,
+            r.role_name roleName,
+            u.id userId,
+            u.nickname nickname,
+            p.id              permissionId,
+            p.menu_code       menuCode,
+            p.menu_name       menuName,
+            p.permission_name permissionName
+            from sys_role r
+            LEFT JOIN  sys_user u on u.role_id = r.id AND u.delete_status = '1'
+            LEFT JOIN sys_role_permission rp ON r.id = rp.role_id AND rp.delete_status = '1'
+            LEFT JOIN sys_permission p ON rp.permission_id = p.id
+        where     r.delete_status = '1'
+        ORDER BY r.id, p.id
+    </select>
+    <!--    List<JSONObject> listAllPermission();-->
+
+    <!--    int inserRole(JSONObject jsonObject);-->
+
+    <!--    int insertRolePermission(@Param("roleId") String roleId, @Param("permissions") List<Integer> permissions);-->
+
+    <!--    int removeOldPermission(@Param("roleId") String roleId, @Param("permissions") List<Integer> permissions);-->
+
+    <!--    int updateRoleName(JSONObject jsonObject);-->
+
+    <!--    JSONObject getRoleAllInfo(JSONObject jsonObject);-->
+
+    <!--    int removeRole(JSONObject jsonObject);-->
+
+    <!--    int removeRoleAllPermission(JSONObject jsonObject);-->
+
+</mapper>
