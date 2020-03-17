@@ -35,3 +35,6 @@ tomcat.8080
 **/**/.settings
 .classpath
 **/**/.classpath
+**/**/node_modules
+**/**/logs
+**/logs
